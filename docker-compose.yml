@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  scheduler:
+    container_name: invade-didww_billing_scheduler
+    build:
+      context: . #if your Dockerfile is not at the same level change the path here (./scheduler)
+      target: dev
+    restart: always
+    platform: linux/amd64
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 3001:3001
