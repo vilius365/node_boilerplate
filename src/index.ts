@@ -1,11 +1,11 @@
 const dotenv = require('dotenv');
 dotenv.config();
 import bodyParser = require("body-parser");
-import { crud_tasks } from "./routes/crud_Tasks";
 import express = require("express");
+import { Log } from "./utils/logger/logger";
+import { crud_tasks } from "./routes/crud_Tasks";
 import { run_tasks } from "./routes/run_Tasks";
 import { myAgenda } from "./utils/schedule";
-import { Log } from "./utils/logger/logger";
 
 var app = express();
 
