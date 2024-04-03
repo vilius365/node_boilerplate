@@ -3,7 +3,7 @@
   "config": {
     "packageName": "node_new"
   },
-  "version": "0.0.6-0",
+  "version": "0.0.4-1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "version:minor": "npm version minor && npm ci",
     "version:major": "npm version major && npm ci",
     "printVersion": "echo Version: %npm_package_version% built on %date% %time%",
-    "wp-build": "npm version prepatch && tsc && webpack --config webpack.prod.js --progress &&  npm run printVersion "
+    "wp-build": "npm --no-git-tag-version version prerelease && tsc && webpack --config webpack.prod.js --progress &&  npm run printVersion "
   },
   "author": "",
   "license": "ISC",
