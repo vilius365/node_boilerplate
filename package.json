@@ -3,18 +3,19 @@
   "config": {
     "packageName": "node_new"
   },
-  "version": "0.0.8",
+  "version": "0.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build:prod": "npm run wp-build && npm run do:postbuild",
     "do:postbuild": "copyfiles ./package.json ./dist/ && copyfiles ./%npm_package_config_packageName%.conf-template ./dist/",
     "dev": "nodemon",
+    "version:prepatch": "npm version prepatch && npm ci",
     "version:patch": "npm version patch && npm ci",
     "version:minor": "npm version minor && npm ci",
     "version:major": "npm version major && npm ci",
     "printVersion": "echo Version: %npm_package_version% built on %date% %time%",
-    "wp-build": "npm version patch && tsc && webpack --config webpack.prod.js --progress &&  npm run printVersion "
+    "wp-build": "npm version prepatch && tsc && webpack --config webpack.prod.js --progress &&  npm run printVersion "
   },
   "author": "",
   "license": "ISC",
