@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import Agenda from "agenda";
 
 // const mongoConnectionString = "mongodb://invade:invade@192.168.1.245/agenda";
@@ -30,3 +31,35 @@
 //   // Alternatively, you could also do:
 //   await agenda.every("*/1 * * * *", "delete old users");
 })();
+=======
+import { Agenda } from "agenda/dist/agenda";
+import { sendMessage } from "../jobs_low/functions";
+import { Log } from "./logger/logger";
+
+const mongoConnectionString =
+  process.env.MONGO_URL || "noConnectionStringFound";
+
+const connectionOpts = {
+  db: { address: mongoConnectionString, collection: "jobs" },
+};
+
+const agenda = new Agenda(connectionOpts);
+
+agenda.defaultLockLifetime(100);
+
+agenda.on("ready", () => {
+  Log.info("Agenda ready");
+  agenda.jobs().then((jobs) => {
+    jobs.map((job: any) => {
+      if (job.lockedAt !== null && job.lockedAt !== undefined) {
+        Log.info(`Job ${job.attrs.name} was locked at ${job.attrs.lockedAt}`);
+      }
+      agenda.define(job.attrs.name, sendMessage);
+    });
+  });
+
+  agenda.start();
+});
+
+export const myAgenda = agenda;
+>>>>>>> parent of 7bc9464 (Merge branch 'devel' of https://github.com/vilius365/node_boilerplate into devel)
