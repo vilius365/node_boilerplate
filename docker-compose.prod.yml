@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  prod:
+    container_name: prod
+    build:
+      context: .
+      dockerfile: docker-prod.Dockerfile
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - 3001:3001

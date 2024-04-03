@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  scheduler:
-    container_name: invade-didww_billing_scheduler
+  dev:
+    container_name: dev
     build:
       context: . #if your Dockerfile is not at the same level change the path here (./scheduler)
       target: dev

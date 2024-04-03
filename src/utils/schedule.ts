@@ -3,7 +3,7 @@ import { sendMessage } from "../jobs_low/functions";
 import { Log } from "./logger/logger";
 
 const mongoConnectionString =
-  "mongodb://invade:invade@192.168.1.245:27017/invade-didww_billing_backend?authMechanism=DEFAULT&authSource=admin";
+  process.env.MONGO_URL || "noConnectionStringFound";
 
 const connectionOpts = {
   db: { address: mongoConnectionString, collection: "jobs" },
@@ -15,7 +15,6 @@ agenda.defaultLockLifetime(100);
 
 agenda.on("ready", () => {
   Log.info("Agenda ready");
-
   agenda.jobs().then((jobs) => {
     jobs.map((job: any) => {
       if (job.lockedAt !== null && job.lockedAt !== undefined) {
@@ -28,4 +27,4 @@ agenda.on("ready", () => {
   agenda.start();
 });
 
-export default agenda;
+export const myAgenda = agenda;
