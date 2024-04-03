@@ -3,19 +3,20 @@
   "config": {
     "packageName": "node_new"
   },
-  "version": "0.0.4-1",
+  "version": "0.0.4-2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:prod": "npm run wp-build && npm run do:postbuild",
-    "do:postbuild": "copyfiles ./package.json ./dist/ && copyfiles ./%npm_package_config_packageName%.conf-template ./dist/",
+    "build:prod": "npm run wp-build && npm run postbuild",
+    "postbuild": "copyfiles ./package.json ./dist/ && copyfiles ./%npm_package_config_packageName%.conf-template ./dist/",
     "dev": "nodemon",
-    "version:prepatch": "npm version prepatch && npm ci",
+    "wp-build": "npm --no-git-tag-version version prerelease && tsc && webpack --config webpack.prod.js --progress && echo Version: %npm_package_version% built on %date% %time%",
     "version:patch": "npm version patch && npm ci",
     "version:minor": "npm version minor && npm ci",
     "version:major": "npm version major && npm ci",
-    "printVersion": "echo Version: %npm_package_version% built on %date% %time%",
-    "wp-build": "npm --no-git-tag-version version prerelease && tsc && webpack --config webpack.prod.js --progress &&  npm run printVersion "
+    "docker:prod:build": "docker-compose -f .\\docker-compose.prod.yml build",
+    "docker:prod:run": "docker-compose -f .\\docker-compose.prod.yml up",
+    "docker:build": "npm run build:prod && npm run docker:prod:build"
   },
   "author": "",
   "license": "ISC",
