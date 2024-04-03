@@ -14,7 +14,7 @@ const agenda = new Agenda(connectionOpts);
 agenda.defaultLockLifetime(100);
 
 agenda.on("ready", () => {
-  Log.info("Agenda ready");
+  Log.info("Agenda initialised...");
   agenda.jobs().then((jobs) => {
     jobs.map((job: any) => {
       if (job.lockedAt !== null && job.lockedAt !== undefined) {

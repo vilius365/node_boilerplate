@@ -3,24 +3,18 @@
   "config": {
     "packageName": "node_new"
   },
-  "version": "1.0.0",
+  "version": "0.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:prod": "npm run build-ts",
-    "build-ts": "tsc && npm run do:webpack && npm run do:postbuild",
-    "do:webpack": "webpack --progress",
+    "build:prod": "npm run wp-build && npm run do:postbuild",
     "do:postbuild": "copyfiles ./package.json ./dist/ && copyfiles ./%npm_package_config_packageName%.conf-template ./dist/",
     "dev": "nodemon",
-    "build-debug": "tsc",
-    "watch-debug": "concurrently -k -p \"npm run watch-ts\" \"npm run serve-debug\"",
-    "watch-ts": "tsc -w",
-    "serve-debug": "nodemon --inspect built/index.js",
     "version:patch": "npm --no-git-tag-version version patch && npm ci",
     "version:minor": "npm --no-git-tag-version version minor && npm ci",
     "version:major": "npm --no-git-tag-version version major && npm ci",
-    "start_inspect": "nodemon --delay 80ms --watch src/ src/index.ts --exec 'npm run inspect'",
-    "wp-build": "tsc && webpack --config webpack.prod.js --progress"
+    "printVersion": "echo Version: %npm_package_version% built on %date% %time%",
+    "wp-build": "npm --no-git-tag-version version patch && tsc && webpack --config webpack.prod.js --progress &&  npm run printVersion "
   },
   "author": "",
   "license": "ISC",
