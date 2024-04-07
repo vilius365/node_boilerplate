@@ -5,7 +5,7 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .env ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .env tsconfig.json docker-* webpack.common.js webpack.prod.js ./
 
 RUN \
     if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -19,12 +19,12 @@ COPY .env .
 
 RUN \
     if [ -f yarn.lock ]; then yarn build; \
-    elif [ -f package-lock.json ]; then npm run build; \
+    elif [ -f package-lock.json ]; then npm run builder:prod; \
     elif [ -f pnpm-lock.yaml ]; then pnpm build; \
     else npm run build; \
     fi
 
-FROM base AS runner
+FROM builder AS runner
 
 WORKDIR /app
 

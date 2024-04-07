@@ -1,9 +1,10 @@
 version: "3.8"
 services:
-  dev:
-    container_name: dev
+  scheduler_dev:
+    container_name: scheduler_dev
     build:
       context: . #if your Dockerfile is not at the same level change the path here (./scheduler)
+      dockerfile: docker-dev.Dockerfile
       target: dev
     restart: always
     platform: linux/amd64

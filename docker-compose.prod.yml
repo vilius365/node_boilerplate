@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  prod:
-    container_name: prod
+  scheduler_prod:
+    container_name: scheduler_prod
     build:
       context: .
       dockerfile: docker-prod.Dockerfile

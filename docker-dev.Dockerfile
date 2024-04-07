@@ -46,6 +46,8 @@ RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
+RUN npm install nodemon -g
+RUN npm install ts-node -g
 RUN apk add mongodb-tools
 WORKDIR /app
 
@@ -57,4 +59,4 @@ RUN adduser --system --uid 1001 nodejs
 
 USER nodejs
 
-CMD ["npm", "run", "start_inspect"]
+CMD ["npm", "run", "dev"]
