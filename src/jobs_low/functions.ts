@@ -1,5 +1,4 @@
 import { Log } from "../utils/logger/logger";
-const fetch = require("node-fetch");
 
 export const sendMessage = async (job) => {
   Log.info(`${job.attrs.name} - Sending message`);
@@ -15,7 +14,8 @@ export const sendMessage = async (job) => {
       opts.body = job.attrs.data.body;
     }
 
-    Log.info(`Opts: ${JSON.stringify(opts)}`);
+    Log.info(`${job.attrs.name} - URL: ${job.attrs.data.url}`);
+    Log.info(`${job.attrs.name} - Opts: ${JSON.stringify(opts)}`);
 
     const response = await fetch(job.attrs.data.url, opts);
 
